@@ -387,6 +387,8 @@ class UI:
         Callback called when a key is pressed
         """
         if c == ord('q'):
+            # Autosave
+            self.volumelist.mastervolume.save_preset()
             # Quit
             self.end()
             sys.exit(0)
