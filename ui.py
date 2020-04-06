@@ -72,13 +72,18 @@ class VolumeWidget(OneLineWidget):
         OneLineWidget.__init__(self, parent)
         self.volume = volume
         self.namesw = namesw
+        curses.start_color()
+        curses.use_default_colors()
+        curses.init_pair(1, curses.COLOR_CYAN, -1)
+        curses.init_pair(2, curses.COLOR_YELLOW, -1)
+        curses.init_pair(3, 11, -1)
 
     def draw(self, y, width, selected=False):
         # Highlight the name if the widget is selected
         if selected:
-            attribute = curses.A_REVERSE
+            attribute = curses.color_pair(2) | curses.A_REVERSE
         else:
-            attribute = 0
+            attribute = curses.color_pair(2)
 
         # Draw the name
         self.parent.addstr(y, 0, " "+self.volume.name+" ", attribute)
@@ -90,11 +95,11 @@ class VolumeWidget(OneLineWidget):
         slidewright = slidew-slidewleft
 
         # Draw the slider
-        self.parent.addstr(y, slidex-2, "[ ")
-        self.parent.addstr(y, slidex+slidew, " ]")
+        self.parent.addstr(y, slidex-1, "|", curses.color_pair(0))
+        self.parent.addstr(y, slidex+slidew, "|", curses.color_pair(0))
 
-        self.parent.addstr(y, slidex, "#"*slidewleft)
-        self.parent.addstr(y, slidex+slidewleft, "-"*slidewright)
+        self.parent.addstr(y, slidex, "/"*slidewleft,curses.color_pair(1))
+        self.parent.addstr(y, slidex+slidewleft, "-"*slidewright,curses.color_pair(3))
 
     def on_key(self, c, ui):
         if c in (curses.KEY_LEFT, ord('-')):
