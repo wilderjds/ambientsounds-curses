@@ -103,7 +103,7 @@ class Sound(Volume):
 
         # The pygame.mixer.Sound object (only loaded when necessary)
         self.sound = None
-    
+
     def __cmp__(self, other):
         """
         Comparison function (used to sort lexicograohically by
@@ -113,7 +113,7 @@ class Sound(Volume):
             return cmp(self.name, other.name)
         else:
             return cmp(self.index, other.index)
-    
+
     def _set_volume(self):
         """
         Set the volume of the pygame.mixer.Sound object (this method
@@ -143,7 +143,7 @@ class Preset:
         self.master = master
         self.filename = filename
         self.volumes = {}
-        
+
     def apply(self):
         """
         Apply the preset
@@ -207,7 +207,7 @@ class MasterVolume(Volume):
                         self.sounds.append(Sound(os.path.join(sounddir, filename), self))
 
         self.sounds.sort()
-        
+
         pygame.mixer.set_num_channels(len(self.sounds))
 
         # Get the preset
